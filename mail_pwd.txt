@@ -1,0 +1,39 @@
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+import smtplib
+from email.mime.base import MIMEBase
+from email import encoders
+
+strFrom = 'jeevithaproject123@gmail.com'
+strTo = 'projectmakelabs@gmail.com'
+
+# Create the root message and fill in the from, to, and subject headers
+msgRoot = MIMEMultipart('related')
+msgRoot['Subject'] = 'subject information sending from software,user editatble'
+msgRoot['From'] = strFrom
+msgRoot['To'] = strTo
+msgRoot.preamble = 'This is a multi-part message in MIME format.'
+
+msgAlternative = MIMEMultipart('alternative')
+
+msgRoot.attach(msgAlternative)
+
+mail_message_Text = MIMEText('Suspect detected')
+
+msgAlternative.attach(mail_message_Text)
+
+
+smtp = smtplib.SMTP('smtp.gmail.com', 587)
+
+smtp.starttls()
+
+smtp.login('jeevithaproject123@gmail.com', 'ntqeyqgphxjjsphr')
+
+print("mail id and password correct")
+
+smtp.sendmail(strFrom, strTo, msgRoot.as_string())
+
+print("mail send")
+
+smtp.quit()
